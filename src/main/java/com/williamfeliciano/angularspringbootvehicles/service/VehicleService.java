@@ -3,6 +3,7 @@ package com.williamfeliciano.angularspringbootvehicles.service;
 import com.williamfeliciano.angularspringbootvehicles.dto.VehicleDto;
 import com.williamfeliciano.angularspringbootvehicles.exceptions.AppException;
 import com.williamfeliciano.angularspringbootvehicles.mapper.VehicleMapper;
+import com.williamfeliciano.angularspringbootvehicles.model.Vehicle;
 import com.williamfeliciano.angularspringbootvehicles.repository.VehicleRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.NotFound;
@@ -33,9 +34,10 @@ public class VehicleService {
 
 
     public VehicleDto createVehicle(VehicleDto vehicleDto) {
-        var vehicleToSave = vehicleMapper.toVehicle(vehicleDto);
 
-        var savedVehicle = vehicleRepository.save(vehicleToSave);
+        Vehicle vehicleToSave = vehicleMapper.toVehicle(vehicleDto);
+        System.out.println("vehicle to save " + vehicleToSave.getBrand());
+        Vehicle savedVehicle = vehicleRepository.save(vehicleToSave);
 
         return vehicleMapper.toVehicleDto(savedVehicle);
     }

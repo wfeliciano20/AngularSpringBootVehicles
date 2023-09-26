@@ -2,12 +2,14 @@ package com.williamfeliciano.angularspringbootvehicles.controller;
 
 import com.williamfeliciano.angularspringbootvehicles.dto.VehicleDto;
 import com.williamfeliciano.angularspringbootvehicles.service.VehicleService;
-import lombok.Generated;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -26,8 +28,10 @@ public class VehicleController{
     }
 
     @PostMapping("/vehicles")
-    public ResponseEntity<VehicleDto> CreateVehicle(@RequestBody VehicleDto vehicleDto){
-        return new ResponseEntity<>(vehicleService.createVehicle(vehicleDto), HttpStatus.CREATED);
+    public ResponseEntity<VehicleDto> CreateVehicle(@Valid @RequestBody VehicleDto vehicleDto){
+        System.out.println("body: " + vehicleDto);
+        VehicleDto createdVehicle = vehicleService.createVehicle(vehicleDto);
+        return ResponseEntity.created(URI.create("/vehicles/" + vehicleDto.getId())).body(createdVehicle);
     }
 
 }
