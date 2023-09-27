@@ -29,7 +29,6 @@ public class VehicleController{
 
     @PostMapping("/vehicles")
     public ResponseEntity<VehicleDto> CreateVehicle(@Valid @RequestBody VehicleDto vehicleDto){
-        System.out.println("body: " + vehicleDto);
         VehicleDto createdVehicle = vehicleService.createVehicle(vehicleDto);
         return ResponseEntity.created(URI.create("/vehicles/" + vehicleDto.getId())).body(createdVehicle);
     }

@@ -6,7 +6,6 @@ import com.williamfeliciano.angularspringbootvehicles.mapper.VehicleMapper;
 import com.williamfeliciano.angularspringbootvehicles.model.Vehicle;
 import com.williamfeliciano.angularspringbootvehicles.repository.VehicleRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.NotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +35,7 @@ public class VehicleService {
     public VehicleDto createVehicle(VehicleDto vehicleDto) {
 
         Vehicle vehicleToSave = vehicleMapper.toVehicle(vehicleDto);
-        System.out.println("vehicle to save " + vehicleToSave.getBrand());
+
         Vehicle savedVehicle = vehicleRepository.save(vehicleToSave);
 
         return vehicleMapper.toVehicleDto(savedVehicle);
