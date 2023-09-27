@@ -40,4 +40,28 @@ public class VehicleService {
 
         return vehicleMapper.toVehicleDto(savedVehicle);
     }
+
+    public VehicleDto deleteVehicle(Long id) {
+        Vehicle vehicle =  vehicleRepository
+                .findById(id)
+                .orElseThrow(() ->
+                        new AppException(
+                                "Vehicle Not Found",
+                                HttpStatus.NOT_FOUND));
+        vehicleRepository.delete(vehicle);
+        return vehicleMapper.toVehicleDto(vehicle);
+    }
+
+    public VehicleDto updateVehicle(Long id, VehicleDto vehicleDto) {
+        Vehicle vehicle =  vehicleRepository
+                .findById(id)
+                .orElseThrow(() ->
+                        new AppException(
+                                "Vehicle Not Found",
+                                HttpStatus.NOT_FOUND));
+        Vehicle updatedVehicle = vehicleMapper.toVehicle(vehicleDto);
+        vehicleMapper.updateVehicle(vehicle,updatedVehicle);
+        Vehicle saved = vehicleRepository.save(vehicle);
+        return vehicleMapper.toVehicleDto(saved);
+    }
 }

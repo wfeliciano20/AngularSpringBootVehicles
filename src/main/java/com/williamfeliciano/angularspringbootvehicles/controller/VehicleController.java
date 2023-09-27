@@ -33,4 +33,15 @@ public class VehicleController{
         return ResponseEntity.created(URI.create("/vehicles/" + vehicleDto.getId())).body(createdVehicle);
     }
 
+    @DeleteMapping("/vehicles/{id}")
+    public ResponseEntity<VehicleDto> DeleteVehicle(@PathVariable Long id){
+        return  ResponseEntity.ok(vehicleService.deleteVehicle(id));
+    }
+
+    @PutMapping("/vehicles/{id}")
+    public ResponseEntity<VehicleDto> UpdateVehicle(@PathVariable Long id, @Valid @RequestBody VehicleDto vehicleDto){
+        return ResponseEntity.ok(vehicleService.updateVehicle(id,vehicleDto));
+    }
+
+
 }
